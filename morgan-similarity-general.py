@@ -1,9 +1,3 @@
-
-# coding: utf-8
-
-# In[ ]:
-
-
 ##    Description    Similarity Tool for comparing two datasets 
 ##                   and generating a SDFile with similar compounds 
 ##                   
@@ -46,8 +40,6 @@ with warnings.catch_warnings():
 from rdkit import DataStructs
 
 
-
-
 def getSimilarity(md,db,cutoff,outSim,dbIDname,mdIDname):
     ''' Protocol to be followed before similarity analysis:
         - Standardize field names in model molecules to be distinguised with Database field names ( e.g. name for name-model) 
@@ -64,11 +56,11 @@ def getSimilarity(md,db,cutoff,outSim,dbIDname,mdIDname):
 
         The output will be the molecules from the reference database similar at the Model database compounds
         at the cutoff provided.'''
-
+    
     ### Loading Model SDfile
     
     suppl=Chem.SDMolSupplier(md)
-   
+    
     mF_model = [] ## will contain model morgan fingerprints 
     id_model = [] ## molID of the model created by me ( e.g. mol00001)
 
@@ -76,10 +68,11 @@ def getSimilarity(md,db,cutoff,outSim,dbIDname,mdIDname):
     mdictvalues = {}
     
     for m in suppl:
+        
         try:
             mf = AllChem.GetMorganFingerprintAsBitVect(m,2,nBits=1024)
             mF_model.append(mf)
-            id_model.append(m.GetProp(idName))      
+            id_model.append(m.GetProp(mdIDname))      
             
             mnames = [] # model names
             mnewnames = [] # model names  plus MODEL_ to be diferentiated with database ones
@@ -89,8 +82,8 @@ def getSimilarity(md,db,cutoff,outSim,dbIDname,mdIDname):
                 mnewnames.append('MODEL_'+i) ### modify 'MODEL_' for the name that you want to 
             for i in mnames:   
                 mvalues.append(m.GetProp(i))
-            mdictnames[m.GetProp(idName)] = mnewnames    
-            mdictvalues[m.GetProp(idName)] = mvalues  
+            mdictnames[m.GetProp(mdIDname)] = mnewnames    
+            mdictvalues[m.GetProp(mdIDname)] = mvalues  
         except:
             return ('error_fingerprinting')
    
