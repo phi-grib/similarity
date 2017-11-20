@@ -3,7 +3,7 @@
 
 ##    Description    Tool for generating a SDFile from diverse sources
 ##                   
-##    Authors:       Inés Martínez (mmartinez4@imim.es)
+##    Authors:       Kevin Pinto Gil (kevin.pinto@upf.edu)
 ##                   Manuel Pastor (manuel.pastor@upf.edu)
 ##
 ##    Copyright 2015 Manuel Pastor
